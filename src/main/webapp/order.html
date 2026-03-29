@@ -2,19 +2,102 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>外卖平台 - 首页</title>
+    <title>外卖平台 - 点餐下单</title>
+    <style>
+        body {
+            font-family: "Microsoft Yahei", sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .menu-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        .menu-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        form {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        input, select {
+            margin: 8px 0;
+            padding: 6px;
+            width: 200px;
+        }
+        input[type="submit"] {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: #2980b9;
+        }
+    </style>
 </head>
 <body>
-<h1>欢迎来外卖平台</h1>
+<h1>🍔 欢迎来到外卖点餐平台</h1>
 
-<h2>新增订单</h2>
+<!-- 菜单展示区（从 MenuListServlet 获取数据） -->
+<div class="menu-section">
+    <h2>📋 今日菜单</h2>
+    <div id="menu-list">
+        <!-- 这里会由后端 Servlet 动态渲染菜单 -->
+        <!-- 示例静态菜单（可由后端替换） -->
+        <div class="menu-item">
+            <strong>香辣鸡腿堡</strong> - ¥18.00
+            <button onclick="selectFood('香辣鸡腿堡')">选择</button>
+        </div>
+        <div class="menu-item">
+            <strong>奥尔良烤翅</strong> - ¥12.00
+            <button onclick="selectFood('奥尔良烤翅')">选择</button>
+        </div>
+        <div class="menu-item">
+            <strong>可乐(中杯)</strong> - ¥6.00
+            <button onclick="selectFood('可乐(中杯)')">选择</button>
+        </div>
+    </div>
+</div>
 
+<!-- 订单提交区（提交到 OrderCreateServlet） -->
+<h2>📝 新增订单</h2>
 <form action="/order" method="post">
-    用户: <input name="customer"><br>
-    食物: <input name="food"><br>
-    数量: <input name="quantity"><br>
-    <input type="submit">
+    <label>用户姓名：</label>
+    <input type="text" name="customer" required placeholder="请输入您的姓名"><br>
+
+    <label>选择食物：</label>
+    <select name="food" id="food-select" required>
+        <option value="">--请选择食物--</option>
+        <option value="香辣鸡腿堡">香辣鸡腿堡</option>
+        <option value="奥尔良烤翅">奥尔良烤翅</option>
+        <option value="可乐(中杯)">可乐(中杯)</option>
+    </select><br>
+
+    <label>购买数量：</label>
+    <input type="number" name="quantity" min="1" value="1" required><br>
+
+    <input type="submit" value="提交订单">
 </form>
 
+<script>
+    // 点击菜单按钮自动填充到下拉框
+    function selectFood(foodName) {
+        document.getElementById("food-select").value = foodName;
+    }
+</script>
 </body>
 </html>
