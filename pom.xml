@@ -23,15 +23,17 @@
             <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Lombok 只保留一个版本 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!--
-                Note: The original tutorial specified tomcat7-maven-plugin, but it does not support Jakarta EE 9/10 (Servlet 5.0/6.0).
-                We use jetty-maven-plugin (version 11+) which supports Jakarta EE 10.
-                Run with: mvn jetty:run
-            -->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
